@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bùi Hoàng Kim Ngân — Hệ thống thông tin quản lý</title>
+<meta name="description" content="Trang giới thiệu của Bùi Hoàng Kim Ngân — Sinh viên ngành Hệ thống thông tin quản lý, Đại học Kinh tế Quốc dân.">
+
+<!--
+  ===================================================================
+  HƯỚNG DẪN TỰ CHỈNH SỬA
+  ===================================================================
+  1. Chữ nằm trong <body>, chia theo section có comment (VD: HERO, HỌC VẤN...).
+     Cứ tìm đúng section rồi gõ đè chữ, không cần đụng CSS.
+  2. Đổi màu: sửa các biến trong :root (phần <style> ngay bên dưới).
+  3. Thêm 1 mục hoạt động mới: copy nguyên 1 khối <article class="tl-item">,
+     dán vào vị trí mới trong section HOẠT ĐỘNG, sửa nội dung.
+  4. Đổi ảnh: sửa link trong <img id="avatar" src="...">. Nếu tự host ảnh,
+     upload file ảnh vào cùng repo GitHub rồi sửa src thành tên file đó
+     (VD: src="kim-ngan.jpg").
+  5. Link tải CV: sửa href của nút "Tải CV" — có 2 chỗ (header + footer).
+  ===================================================================
+-->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Montserrat:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    /* ---- BẢNG MÀU ---- */
+    --paper:      #fefdfb;   /* nền chính, gần trắng ngà */
+    --paper-2:    #f7f1eb;   /* nền card nhẹ */
+    --ink:        #221d1a;   /* chữ chính */
+    --muted:      #8a7f75;   /* chữ phụ */
+    --line:       #e8dccf;   /* viền / dải phân cách */
+    --accent:     #b8291a;   /* đỏ rực — nhấn chính */
+    --accent-soft:#f5ddd6;   /* nền pill nhạt của accent */
+    --sage:       #5e7a68;   /* xanh trầm — số liệu / dữ liệu */
+
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:   'Montserrat', system-ui, sans-serif;
+    --font-mono:   'IBM Plex Mono', 'Courier New', monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:var(--font-body); line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  ul{ list-style:none; }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; }
+  @media (max-width:640px){ .wrap{ padding:0 20px; } }
+
+  .eyebrow{
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted);
+  }
+  h1,h2,h3{ font-family:var(--font-display); font-weight:600; letter-spacing:-.01em; }
+
+  /* ===== NAV ===== */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,246,241,.86); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:20px 0; }
+  .nav-name{ font-family:var(--font-display); font-weight:600; font-size:18px; }
+  .nav-links{ display:flex; gap:32px; font-size:14.5px; color:var(--muted); }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-cta{
+    font-size:13.5px; font-weight:600; background:var(--accent); color:#fff;
+    padding:11px 20px; border-radius:100px; white-space:nowrap;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .nav-cta:hover{ opacity:.9; }
+  @media (max-width:800px){ .nav-links{ display:none; } }
+
+  /* ===== HERO ===== */
+  section.hero{ padding:76px 0 48px; }
+  .hero-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center; }
+  @media (max-width:840px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  .badge{
+    display:inline-block; font-family:var(--font-mono); font-size:11.5px;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--accent);
+    background:var(--accent-soft); padding:6px 14px; border-radius:100px;
+    margin-bottom:20px;
+  }
+  .hero h1{ font-size:clamp(48px,7.2vw,78px); line-height:1.02; margin-bottom:16px; }
+  .hero p.role{ font-size:19px; color:var(--accent); font-weight:500; margin-bottom:4px; }
+  .hero p.school{ font-size:15px; color:var(--muted); margin-bottom:32px; }
+
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px; }
+  .btn{ font-size:14px; font-weight:600; padding:13px 24px; border-radius:100px; display:inline-block; }
+  .btn.primary{ background:var(--accent); color:#fff; }
+  .btn.primary:hover{ opacity:.9; }
+  .btn.ghost{ border:1.5px solid var(--line); color:var(--ink); }
+  .btn.ghost:hover{ border-color:var(--ink); }
+
+  .stat-row{ display:flex; align-items:center; gap:28px; }
+  .stat-divider{ width:1px; height:38px; background:var(--line); }
+  .stat .num{ font-family:var(--font-mono); font-size:28px; color:var(--sage); font-weight:700; }
+  .stat .label{ font-family:var(--font-mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
+
+  .portrait{
+    position:relative; border-radius:24px; overflow:hidden;
+    border:1px solid var(--line); background:var(--paper-2);
+    aspect-ratio:1/1; max-width:360px; margin-left:auto;
+    box-shadow:0 18px 40px -12px rgba(184,41,26,.28), 0 4px 14px rgba(184,41,26,.14);
+  }
+  .portrait img{ width:100%; height:100%; object-fit:cover; }
+
+  /* Marquee ticker — dải kỹ năng chạy ngang, chi tiết chữ ký của trang */
+  .ticker-wrap{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    overflow:hidden; background:var(--paper-2); margin-top:56px;
+  }
+  .ticker{ display:flex; width:max-content; animation:scroll 26s linear infinite; }
+  @media (prefers-reduced-motion: reduce){ .ticker{ animation:none; } }
+  .ticker span{
+    font-family:var(--font-mono); font-size:13.5px; color:var(--muted);
+    padding:16px 20px; white-space:nowrap; display:flex; align-items:center; justify-content:center; gap:20px;
+  }
+  .ticker span::after{ content:'✦'; color:var(--accent); }
+  @keyframes scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ===== SECTION SHELL ===== */
+  section.block{ padding:72px 0; border-bottom:1px solid var(--line); }
+  .section-head{ display:flex; align-items:baseline; gap:16px; margin-bottom:40px; }
+  .section-head h2{ font-size:34px; }
+
+  /* ===== HỌC VẤN ===== */
+  .edu-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:720px){ .edu-grid{ grid-template-columns:1fr; } }
+  .card{ background:#fff; border:1px solid var(--line); border-radius:18px; padding:30px; }
+  .card h3{ font-size:22px; margin-bottom:4px; }
+  .card .meta{ font-family:var(--font-mono); font-size:12px; color:var(--accent); margin-bottom:16px; display:block; }
+  .card ul li{ position:relative; padding-left:20px; color:var(--muted); font-size:14.5px; margin-bottom:9px; }
+  .card ul li::before{ content:'•'; position:absolute; left:0; color:var(--accent); font-size:26px; line-height:.7; }
+
+  .cert-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:520px){ .cert-grid{ grid-template-columns:1fr; } }
+  .cert-mini{ background:var(--paper-2); border:1px solid var(--line); border-radius:14px; padding:18px; }
+  .cert-mini h4{ font-family:var(--font-display); font-weight:600; font-size:15.5px; margin-bottom:6px; }
+  .cert-mini p{ color:var(--muted); font-size:13px; line-height:1.5; }
+
+  /* ===== HOẠT ĐỘNG — timeline thật theo thời gian ===== */
+  .timeline{ display:flex; flex-direction:column; gap:0; }
+  .tl-item{
+    position:relative; padding:28px 24px 28px 28px;
+    border-left:2px solid var(--line);
+    border-radius:0 14px 14px 0;
+  }
+  .tl-item:nth-child(even){ background:var(--paper-2); }
+  .tl-item::before{
+    content:''; position:absolute; left:-7px; top:34px; width:12px; height:12px;
+    border-radius:50%; background:var(--paper); border:2px solid var(--accent);
+  }
+  .tl-item .date{ font-family:var(--font-mono); font-size:12px; color:var(--muted); }
+  .tl-item h3{ font-size:22px; margin:6px 0 3px; }
+  .tl-item .role{ color:var(--accent); font-size:13.5px; font-weight:700; margin-bottom:14px; display:block; }
+  .tl-item ul li{ position:relative; padding-left:20px; color:var(--muted); font-size:14.5px; margin-bottom:8px; }
+  .tl-item ul li::before{ content:'•'; position:absolute; left:0; color:var(--accent); font-size:26px; line-height:.7; }
+
+  /* ===== KỸ NĂNG ===== */
+  .skill-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+  @media (max-width:720px){ .skill-grid{ grid-template-columns:1fr; } }
+  .skill-cat{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:24px; }
+  .skill-cat .label{ font-family:var(--font-mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:14px; display:block; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{ font-size:13.5px; padding:7px 14px; border-radius:100px; background:var(--paper-2); border:1px solid var(--line); }
+
+  /* ===== LIÊN HỆ ===== */
+  section.contact-block{ padding:72px 0; }
+  .contact-card{
+    background:var(--ink); color:var(--paper); border-radius:24px; padding:52px;
+  }
+  .contact-card h2{ color:#fff; margin-bottom:16px; }
+  .contact-card p{ color:#c9beb2; max-width:56ch; margin-bottom:28px; font-size:15.5px; }
+  .contact-row{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:16px; }
+  .contact-links{ display:flex; flex-wrap:wrap; gap:12px; }
+  .contact-links a{
+    font-size:14px; border:1px solid #46403a; padding:11px 20px; border-radius:100px;
+  }
+  .contact-links a:hover{ border-color:var(--accent); color:var(--accent); }
+  .cv-corner{
+    display:inline-flex; align-items:center; gap:8px; flex-shrink:0; margin-left:auto;
+    background:var(--accent); color:#fff; font-size:13.5px; font-weight:600;
+    padding:12px 22px; border-radius:100px;
+  }
+  .cv-corner:hover{ opacity:.9; }
+
+  footer{ text-align:center; padding:28px 0; color:var(--muted); font-size:12.5px; }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="nav-name" href="#top">Bùi Hoàng Kim Ngân</a>
+    <nav class="nav-links">
+      <a href="#gioi-thieu">Giới thiệu</a>
+      <a href="#hoc-van">Học vấn</a>
+      <a href="#hoat-dong">Hoạt động</a>
+      <a href="#ky-nang">Kỹ năng</a>
+      <a href="#lien-he">Liên hệ</a>
+    </nav>
+    <!-- Sửa link Google Drive CV ở đây -->
+    <a class="nav-cta" href="https://drive.google.com/file/d/14PGlo27g2CpmJaY1zAhMdl3eroRb18zc/view?usp=sharing" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></svg>
+      Tải CV
+    </a>
+  </div>
+</header>
+
+<!-- ===== HERO / GIỚI THIỆU ===== -->
+<section class="hero" id="gioi-thieu">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge">Sinh viên năm hai</span>
+      <h1>Bùi Hoàng<br>Kim Ngân</h1>
+      <p class="role"><strong>Ngành Hệ thống thông tin quản lý</strong></p>
+      <p class="school">Đại học Kinh tế Quốc dân</p>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="#hoat-dong">Xem dự án</a>
+        <a class="btn ghost" href="#lien-he">Kết nối ngay</a>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat">
+          <div class="num">3.79/4.0</div>
+          <div class="label">GPA</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="num">6.5</div>
+          <div class="label">IELTS</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sửa link ảnh ở đây nếu muốn dùng ảnh khác -->
+    <div class="portrait">
+      <img id="avatar" src="https://kim-ngan-three.vercel.app/kim-ngan.jpg" alt="Ảnh chân dung Bùi Hoàng Kim Ngân">
+    </div>
+  </div>
+</section>
+
+<!-- Dải kỹ năng chạy ngang -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>Phân tích dữ liệu</span><span>Thiết kế đồ hoạ</span><span>Truyền đạt</span><span>MOS</span><span>Tin học văn phòng</span><span>Quản lý công việc</span><span>Tinh thần học hỏi</span><span>IELTS</span>
+    <span>Phân tích dữ liệu</span><span>Thiết kế đồ hoạ</span><span>Truyền đạt</span><span>MOS</span><span>Tin học văn phòng</span><span>Quản lý công việc</span><span>Tinh thần học hỏi</span><span>IELTS</span>
+  </div>
+</div>
+
+<!-- ===== HỌC VẤN ===== -->
+<section class="block" id="hoc-van">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">01</span>
+      <h2>Học vấn & Chứng chỉ</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="card">
+        <h3>Đại học Kinh tế Quốc dân</h3>
+        <span class="meta">2025 — Nay · Ngành Hệ thống thông tin quản lý</span>
+        <ul>
+          <li>GPA tích luỹ: 3.79 / 4.0</li>
+          <li>Học phần chuyên ngành: Tri thức kinh doanh, Hệ thống thông tin quản lý</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Chứng chỉ</h3>
+        <span class="meta">Cập nhật gần nhất</span>
+        <div class="cert-grid">
+          <div class="cert-mini">
+            <h4>IELTS Academic — 6.5</h4>
+            <p>Năng lực đọc hiểu tài liệu Tiếng Anh và giao tiếp</p>
+          </div>
+          <div class="cert-mini">
+            <h4>MOS (Microsoft Office Specialist)</h4>
+            <p>Sử dụng tốt công cụ tin học văn phòng: Excel, Word, PowerPoint</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOẠT ĐỘNG / KINH NGHIỆM ===== -->
+<section class="block" id="hoat-dong">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">02</span>
+      <h2>Dự án & Hoạt động ngoại khoá</h2>
+    </div>
+
+    <div class="timeline">
+
+      <article class="tl-item">
+        <span class="date">03/2026 – 05/2026</span>
+        <h3>Dự án Tri thức kinh doanh — Phân tích chi phí Marketing</h3>
+        <span class="role">Trưởng nhóm</span>
+        <ul>
+          <li>Dẫn dắt nhóm 6 thành viên, quản lý phân chia công việc qua Trello, điều phối tiến độ từ làm sạch dữ liệu đến thuyết trình cuối.</li>
+          <li>Phân tích hiệu quả quảng cáo trên Google Ads, Meta Ads và TikTok Ads.</li>
+          <li>Thiết kế 3 Dashboard tương tác trên Power BI theo dõi chi phí, hiệu suất kênh và chiến lược tối ưu hoá.</li>
+          <li>Phát hiện TikTok Ads là kênh sinh lời cao nhất (ROI 662%), đề xuất tái phân bổ ngân sách từ Google Ads.</li>
+        </ul>
+      </article>
+
+      <article class="tl-item">
+        <span class="date">2025 — Nay</span>
+        <h3>Liên chi đoàn Khoa Hệ thống thông tin quản lý</h3>
+        <span class="role">Phó ban Truyền thông Kỹ thuật — Chương trình tập huấn nội bộ "Giao duyên"</span>
+        <ul>
+          <li>Sử dụng Google Workspace để trao đổi công việc, quản lý nhiệm vụ của từng thành viên và tổng hợp thông tin.</li>
+          <li>Theo dõi tiến độ, cập nhật timeline, follow-up các bên liên quan để đảm bảo đúng deadline.</li>
+          <li>Xử lý phát sinh, điều chỉnh kế hoạch trong quá trình triển khai.</li>
+          <li>Phối hợp với các ban để đồng bộ hình ảnh và nội dung.</li>
+          <li>Góp ý, kiểm duyệt ấn phẩm của thành viên, đảm bảo chất lượng đầu ra.</li>
+          <li>Quản lý lịch đăng bài mạng xã hội xuyên suốt sự kiện.</li>
+        </ul>
+      </article>
+
+      <article class="tl-item">
+        <span class="date">2024 — 2025</span>
+        <h3>Câu lạc bộ Tình nguyện Việt Đức — THPT Việt Đức</h3>
+        <span class="role">Phó Ban Truyền thông</span>
+        <ul>
+          <li>Xây dựng chủ đề đồng bộ hình ảnh và nội dung cho các sự kiện của câu lạc bộ.</li>
+          <li>Vận hành fanpage CLB, trả lời tin nhắn và theo dõi tương tác trực tuyến.</li>
+        </ul>
+      </article>
+
+      <article class="tl-item">
+        <span class="date">07/2025 – 01/2026</span>
+        <h3>Trung tâm Vật lý — Vật lý Siêu nhẩm</h3>
+        <span class="role">Trợ giảng</span>
+        <ul>
+          <li>Kỹ năng giao tiếp, truyền đạt, hướng dẫn.</li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== KỸ NĂNG ===== -->
+<section class="block" id="ky-nang">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">03</span>
+      <h2>Kỹ năng</h2>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-cat">
+        <span class="label">Quản lý & Vận hành</span>
+        <div class="chip-row"><span class="chip">Trello</span><span class="chip">Google Workspace</span></div>
+      </div>
+      <div class="skill-cat">
+        <span class="label">Phân tích dữ liệu</span>
+        <div class="chip-row"><span class="chip">Power BI</span><span class="chip">Excel</span></div>
+      </div>
+      <div class="skill-cat">
+        <span class="label">Kỹ năng mềm</span>
+        <div class="chip-row"><span class="chip">Quản lý công việc & tiến độ</span><span class="chip">Truyền đạt</span><span class="chip">Giải quyết vấn đề</span><span class="chip">Tư duy logic</span></div>
+      </div>
+      <div class="skill-cat">
+        <span class="label">Thiết kế đồ hoạ</span>
+        <div class="chip-row"><span class="chip">Adobe Illustrator</span><span class="chip">Canva</span><span class="chip">Inkscape</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LIÊN HỆ ===== -->
+<section class="contact-block" id="lien-he">
+  <div class="wrap">
+    <div class="contact-card">
+      <span class="eyebrow" style="color:#8f8578;">04</span>
+      <h2>Kết nối với Kim Ngân</h2>
+      <p>Cảm ơn Quý nhà tuyển dụng và doanh nghiệp đã dành thời gian xem qua hồ sơ năng lực trực tuyến của em. Em rất mong muốn có cơ hội được trao đổi chi tiết hơn.</p>
+      <div class="contact-row">
+        <div class="contact-links">
+          <a href="mailto:kimngan192007@gmail.com">Email · kimngan192007@gmail.com</a>
+          <a href="tel:0865910059">Điện thoại · 0865910059</a>
+          <a href="https://maps.google.com/?q=Trương+Định,+Phường+Tương+Mai,+Hà+Nội" target="_blank" rel="noopener">Địa chỉ · Trương Định, Phường Tương Mai, Hà Nội</a>
+        </div>
+        <!-- Sửa link Google Drive CV ở đây -->
+        <a class="cv-corner" href="https://drive.google.com/file/d/14PGlo27g2CpmJaY1zAhMdl3eroRb18zc/view?usp=sharing" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></svg>
+          Tải CV
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Bùi Hoàng Kim Ngân</footer>
+
+</body>
+</html>
